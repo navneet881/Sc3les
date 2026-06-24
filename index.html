@@ -561,7 +561,10 @@ function renderSettings(){
 
 /* ═══════════════════════ event handling ════════════════════════════════════ */
 document.addEventListener("click",function(e){
-  if(e.target.classList&&e.target.classList.contains("overlay")){S.settingsOpen=false;S.confirmReset=false;render();return;}
+   if(e.target.classList&&e.target.classList.contains("overlay")){
+    if(e.target.closest("[data-stop]"))return;
+    S.settingsOpen=false;S.confirmReset=false;render();return;
+  }
   var el=e.target.closest("[data-a]");if(!el)return;
   var a=el.getAttribute("data-a");
   switch(a){
