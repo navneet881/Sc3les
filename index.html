@@ -537,7 +537,7 @@ function renderSettings(){
   var resetBlock=S.confirmReset
     ?'<div style="display:flex;gap:8px;align-items:center"><span style="font-size:13px;color:var(--warn)">Delete everything?</span><button class="btn" style="background:var(--warn)" data-a="doReset">Yes, clear</button><button class="ghost" data-a="cancelReset">Cancel</button></div>'
     :'<button class="ghost" style="color:var(--warn)" data-a="askReset">🗑 Clear all logged weights</button>';
-  return'<div class="overlay"><div class="card modal" data-stop="1">'+
+return'<div class="overlay" onclick="if(event.target===this){S.settingsOpen=false;S.confirmReset=false;render();}"><div class="card modal">'+
     '<div class="row" style="margin-bottom:14px"><div style="font-weight:800;font-size:18px">Your details</div><button class="iconbtn" data-a="closeSettings">✕</button></div>'+
     '<div class="col">'+
     '<div style="padding:10px 12px;background:var(--faint);border-radius:10px;font-size:13px;color:var(--sub);display:flex;align-items:center;gap:8px">'+
@@ -561,11 +561,6 @@ function renderSettings(){
 
 /* ═══════════════════════ event handling ════════════════════════════════════ */
 document.addEventListener("click",function(e){
-  if(e.target.classList&&e.target.classList.contains("overlay")){
-    var modal=document.querySelector("[data-stop]");
-    if(modal&&modal.contains(e.target))return;
-    S.settingsOpen=false;S.confirmReset=false;render();return;
-  }
   var el=e.target.closest("[data-a]");if(!el)return;
   var a=el.getAttribute("data-a");
   switch(a){
